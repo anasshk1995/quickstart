@@ -3,43 +3,17 @@
 # AWS data
 # ----------------------------------------------------------
 
-# Use latest SLES 15 SP3
-data "aws_ami" "sles" {
+# Use specific Ubuntu AMI
+data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["013907871322"] # SUSE
+  owners      = ["099720109477"]
 
   filter {
-    name   = "name"
-    values = ["suse-sles-15-sp3*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
+    name   = "image-id"
+    values = ["ami-04a81a99f5ec58529"]
   }
 }
 
-data "aws_ami" "windows" {
-  most_recent = true
-  owners      = ["801119661308"] #Amazon
-  filter {
-    name   = "name"
-    values = ["Windows_Server-2019-English-Full-ContainersLatest-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
+output "ubuntu_ami" {
+  value = data.aws_ami.ubuntu.id
 }

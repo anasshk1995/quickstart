@@ -74,9 +74,9 @@ resource "aws_security_group" "rancher_sg_allowall" {
   vpc_id      = aws_vpc.rancher_vpc.id
 
   ingress {
-    from_port   = "0"
-    to_port     = "0"
-    protocol    = "-1"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -97,7 +97,7 @@ resource "aws_instance" "rancher_server" {
   depends_on = [
     aws_route_table_association.rancher_route_table_association
   ]
-  ami           = data.aws_ami.sles.id
+  ami           = "ami-04a81a99f5ec58529"
   instance_type = var.instance_type
 
   key_name                    = aws_key_pair.quickstart_key_pair.key_name
@@ -157,7 +157,7 @@ resource "aws_instance" "quickstart_node" {
   depends_on = [
     aws_route_table_association.rancher_route_table_association
   ]
-  ami           = data.aws_ami.sles.id
+  ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
   key_name                    = aws_key_pair.quickstart_key_pair.key_name

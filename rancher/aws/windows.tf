@@ -3,7 +3,7 @@ resource "aws_instance" "quickstart_node_win" {
     aws_route_table_association.rancher_route_table_association
   ]
   count         = var.add_windows_node ? 1 : 0
-  ami           = data.aws_ami.windows.id
+  ami           = data.aws_ami.ubuntu.id
   instance_type = var.windows_instance_type
 
   key_name                    = aws_key_pair.quickstart_key_pair.key_name
